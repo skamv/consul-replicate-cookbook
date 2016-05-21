@@ -7,8 +7,7 @@ notifications:
 script: bundle exec rake travis
 rvm:
   - 2.2
-  - 2.3
-  - tip
+  - 2.3.1
 branches:
   only:
     - master
