@@ -27,10 +27,10 @@ module ConsulReplicateCookbook
 
       # @!attribute consul
       # @return [String]
-      attribute(:consul, kind_of: String)
+      attribute(:consul, kind_of: String, default: '127.0.0.1:8500')
       # @!attribute token
       # @return [String]
-      attribute(:token, kind_of: String)
+      attribute(:token, kind_of: String, default: '')
       # @!attribute retry
       # @return [String]
       attribute(:retry, kind_of: String, default: '10s')
@@ -45,7 +45,7 @@ module ConsulReplicateCookbook
       attribute(:syslog_enabled, equal_to: [true, false], default: false)
       # @!attribute syslog_facility
       # @return [String]
-      attribute(:syslog_facility, kind_of: String)
+      attribute(:syslog_facility, kind_of: String, default: 'local0')
       # @!attribute ssl_enabled
       # @return [TrueClass, FalseClass]
       attribute(:ssl_enabled, equal_to: [true, false], default: false)
@@ -57,10 +57,10 @@ module ConsulReplicateCookbook
       attribute(:auth_enabled, equal_to: [true, false], default: true)
       # @!attribute auth_username
       # @return [String]
-      attribute(:auth_username, kind_of: String)
+      attribute(:auth_username, kind_of: String, default: '')
       # @!attribute auth_username
       # @return [String]
-      attribute(:auth_password, kind_of: String)
+      attribute(:auth_password, kind_of: String, default: '')
       # @!attribute prefix
       # @return [Array]
       attribute(:prefix, kind_of: Array[Hash], default: [])
