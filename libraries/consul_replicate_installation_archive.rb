@@ -38,7 +38,7 @@ module ConsulReplicateCookbook
       def action_create
         url = options[:archive_url] % {version: options[:version], basename: options[:archive_basename]}
         notifying_block do
-          directory options[:prefix] do
+          directory consul_base do
             recursive true
           end
 
@@ -46,13 +46,27 @@ module ConsulReplicateCookbook
             action :nothing
             path ::File.join(Chef::Config[:file_cache_path], name)
             destination consul_base
+            strip_components 0
           end
 
           remote_file ::File.basename(url) do
+            action :nothing
             source url
             checksum options[:archive_checksum]
             path ::File.join(Chef::Config[:file_cache_path], name)
+          end
+
+          ruby_block ::File.basename(url) do
+            block {  } # hack
+            notifies :create, "remote_file[#{name}]", :immediately
             notifies :unpack, "poise_archive[#{name}]", :immediately
+            notifies :touch, "file[#{program}]", :immediately
+            not_if { ::File.exist?(program) }
+          end
+
+          file program do
+            mode '0755'
+            only_if { ::File.exist?(path) }
           end
         end
       end

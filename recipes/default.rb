@@ -8,6 +8,12 @@ poise_service_user node['consul-replicate']['service_user'] do
   group node['consul-replicate']['service_group']
 end
 
+directory node['consul-replicate']['service_directory'] do
+  recursive true
+  owner node['consul-replicate']['service_user']
+  group node['consul-replicate']['service_group']
+end
+
 consul = consul_replicate_installation node['consul-replicate']['service_name'] do
   version node['consul-replicate']['version']
 end
@@ -23,4 +29,6 @@ end
 
 poise_service node['consul-replicate']['service_name'] do
   command "#{consul.program} -config #{config.path}"
+  user node['consul-replicate']['service_user']
+  directory node['consul-replicate']['service_directory']
 end
