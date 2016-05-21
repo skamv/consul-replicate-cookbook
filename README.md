@@ -1,4 +1,4 @@
-# Consul Replicate
+# consul-replicate cookbook
 [![Build Status](https://img.shields.io/travis/johnbellone/consul-replicate-cookbook.svg)](https://travis-ci.org/johnbellone/consul-replicate-cookbook)
 [![Code Quality](https://img.shields.io/codeclimate/github/johnbellone/consul-replicate-cookbook.svg)](https://codeclimate.com/github/johnbellone/consul-replicate-cookbook)
 [![Test Coverage](https://codeclimate.com/github/johnbellone/consul-replicate-cookbook/badges/coverage.svg)](https://codeclimate.com/github/johnbellone/consul-replicate-cookbook/coverage)
