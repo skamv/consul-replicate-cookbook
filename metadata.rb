@@ -1,0 +1,15 @@
+name 'consul-replicate'
+maintainer 'John Bellone'
+maintainer_email 'jbellone@bloomberg.net'
+description 'Application cookbook which installs and configures Consul Replicate'
+long_description 'Application cookbook which installs and configures Consul Replicate'
+version '0.1.0'
+
+supports 'redhat', '>= 5.8'
+supports 'centos', '>= 5.8'
+supports 'ubuntu', '>= 12.04'
+
+depends 'poise', '~> 2.6'
+depends 'poise-archive', '~> 1.2'
+depends 'poise-service', '~> 1.0'
+depends 'rc'
