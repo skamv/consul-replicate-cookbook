@@ -14,7 +14,7 @@ module ConsulReplicateCookbook
 
       # @!attribute path
       # @return [String]
-      attribute(:path, kind_of: String, default: '/etc/consul-replicate.json')
+      attribute(:path, kind_of: String, default: '/etc/consul/replicate.json')
       # @!attribute owner
       # @return [String]
       attribute(:owner, kind_of: String, default: 'consul')
@@ -30,16 +30,19 @@ module ConsulReplicateCookbook
       attribute(:consul, kind_of: String, default: '127.0.0.1:8500')
       # @!attribute token
       # @return [String]
-      attribute(:token, kind_of: String, default: '')
+      attribute(:token, kind_of: String)
       # @!attribute retry
       # @return [String]
       attribute(:retry, kind_of: String, default: '10s')
       # @!attribute max_stale
       # @return [String]
       attribute(:max_stale, kind_of: String, default: '10m')
+      # @!attribute wait
+      # @return [String]
+      attribute(:wait, kind_of: String)
       # @!attribute log_level
       # @return [String]
-      attribute(:log_level, equal_to: %w{debug info}, default: 'info')
+      attribute(:log_level, equal_to: %w{debug info err}, default: 'info')
       # @!attribute syslog_enabled
       # @return [TrueClass, FalseClass]
       attribute(:syslog_enabled, equal_to: [true, false], default: false)
@@ -54,13 +57,13 @@ module ConsulReplicateCookbook
       attribute(:ssl_verify, equal_to: [true, false], default: true)
       # @!attribute auth_enabled
       # @return [TrueClass, FalseClass]
-      attribute(:auth_enabled, equal_to: [true, false], default: true)
+      attribute(:auth_enabled, equal_to: [true, false], default: false)
       # @!attribute auth_username
       # @return [String]
-      attribute(:auth_username, kind_of: String, default: '')
+      attribute(:auth_username, kind_of: String)
       # @!attribute auth_username
       # @return [String]
-      attribute(:auth_password, kind_of: String, default: '')
+      attribute(:auth_password, kind_of: String)
       # @!attribute prefix
       # @return [Array]
       attribute(:prefix, kind_of: Array[Hash], default: [])
@@ -68,18 +71,40 @@ module ConsulReplicateCookbook
       def variables
         {
           consul: consul,
-          token: token,
           retry: self.retry,
           max_stale: max_stale,
           log_level: log_level,
-          auth: {enabled: auth_enabled, username: auth_username, password: auth_password},
-          ssl: {enabled: ssl_enabled, verify: ssl_verify},
-          syslog: {enabled: syslog_enabled, facility: syslog_facility},
           prefix: prefix
-        }
+        }.tap do |h|
+          h['token'] = token if token
+          h['wait'] = wait if wait
+
+          if auth_enabled
+            h['auth']['enabled'] = true
+            h['auth']['username'] = auth_username
+            h['auth']['password'] = auth_password
+          end
+
+          if syslog_enabled
+            h['syslog']['enabled'] = true
+            h['syslog']['facility'] = syslog_facility
+          end
+
+          if ssl_enabled
+            h['ssl']['enabled'] = true
+            h['ssl']['verify'] = ssl_verify
+            h['ssl']['cert'] = ssl_cert
+            h['ssl']['key'] = ssl_key
+            h['ssl']['ca_cert'] = ssl_ca_cert
+          end
+        end
       end
 
       action(:create) do
+        directory ::File.dirname(new_resource.path) do
+          recursive true
+        end
+
         rc_file new_resource.path do
           type 'json'
           options new_resource.variables

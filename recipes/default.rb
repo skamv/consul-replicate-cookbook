@@ -6,6 +6,7 @@
 #
 poise_service_user node['consul-replicate']['service_user'] do
   group node['consul-replicate']['service_group']
+  not_if { user == 'root' }
 end
 
 directory node['consul-replicate']['service_directory'] do

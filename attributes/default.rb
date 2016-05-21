@@ -11,4 +11,4 @@ default['consul-replicate']['service_group'] = 'consul'
 default['consul-replicate']['service_name'] = 'consul-replicate'
 default['consul-replicate']['service_directory'] = '/var/run/consul-replicate'
 
-default['consul-replicate']['config']['path'] = '/etc/consul-replicate.json'
+default['consul-replicate']['config']['path'] = '/etc/consul/replicate.json'
