@@ -67,15 +67,15 @@ module ConsulReplicateCookbook
 
       def variables
         {
-         consul: consul,
-         token: token,
-         retry: self.retry,
-         max_stale: max_stale,
-         log_level: log_level,
-         auth: {enabled: auth_enabled, username: auth_username, password: auth_password},
-         ssl: {enabled: ssl_enabled, verify: ssl_verify},
-         syslog: {enabled: syslog_enabled, facility: syslog_facility},
-         prefix: prefix,
+          consul: consul,
+          token: token,
+          retry: self.retry,
+          max_stale: max_stale,
+          log_level: log_level,
+          auth: {enabled: auth_enabled, username: auth_username, password: auth_password},
+          ssl: {enabled: ssl_enabled, verify: ssl_verify},
+          syslog: {enabled: syslog_enabled, facility: syslog_facility},
+          prefix: prefix
         }
       end
 

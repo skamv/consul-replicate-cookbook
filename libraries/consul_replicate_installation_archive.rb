@@ -57,7 +57,7 @@ module ConsulReplicateCookbook
           end
 
           ruby_block ::File.basename(url) do
-            block {  } # hack
+            block {} # hack
             notifies :create, "remote_file[#{name}]", :immediately
             notifies :unpack, "poise_archive[#{name}]", :immediately
             notifies :touch, "file[#{program}]", :immediately
