@@ -56,14 +56,6 @@ module ConsulReplicateCookbook
             path ::File.join(Chef::Config[:file_cache_path], name)
           end
 
-          ruby_block ::File.basename(url) do
-            block {} # hack
-            notifies :create, "remote_file[#{name}]", :immediately
-            notifies :unpack, "poise_archive[#{name}]", :immediately
-            notifies :touch, "file[#{program}]", :immediately
-            not_if { ::File.exist?(program) }
-          end
-
           file program do
             mode '0755'
             only_if { ::File.exist?(path) }
