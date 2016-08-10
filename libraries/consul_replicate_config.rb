@@ -66,7 +66,7 @@ module ConsulReplicateCookbook
       attribute(:auth_password, kind_of: String)
       # @!attribute prefix
       # @return [Array]
-      attribute(:prefix, kind_of: Array[Hash], default: [])
+      attribute(:prefix, kind_of: Array, default: [])
 
       def variables
         {
@@ -76,21 +76,24 @@ module ConsulReplicateCookbook
           log_level: log_level,
           prefix: prefix
         }.tap do |h|
-          h['token'] = token if token
-          h['wait'] = wait if wait
+          h['token'] = token unless token.nil?
+          h['wait'] = wait unless wait.nil?
 
           if auth_enabled
+            h['auth'] = Hash.new
             h['auth']['enabled'] = true
             h['auth']['username'] = auth_username
             h['auth']['password'] = auth_password
           end
 
           if syslog_enabled
+            h['syslog'] = Hash.new
             h['syslog']['enabled'] = true
             h['syslog']['facility'] = syslog_facility
           end
 
           if ssl_enabled
+            h['ssl'] = Hash.new
             h['ssl']['enabled'] = true
             h['ssl']['verify'] = ssl_verify
             h['ssl']['cert'] = ssl_cert
