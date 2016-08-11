@@ -33,4 +33,3 @@ poise_service node['consul-replicate']['service_name'] do
   directory node['consul-replicate']['service_directory']
   subscribes :reload, "rc_file[#{config.path}]", :delayed
 end
-
