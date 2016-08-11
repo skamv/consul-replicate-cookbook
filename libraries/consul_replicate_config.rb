@@ -80,20 +80,20 @@ module ConsulReplicateCookbook
           h['wait'] = wait unless wait.nil?
 
           if auth_enabled
-            h['auth'] = Hash.new
+            h['auth'] = {}
             h['auth']['enabled'] = true
             h['auth']['username'] = auth_username
             h['auth']['password'] = auth_password
           end
 
           if syslog_enabled
-            h['syslog'] = Hash.new
+            h['syslog'] = {}
             h['syslog']['enabled'] = true
             h['syslog']['facility'] = syslog_facility
           end
 
           if ssl_enabled
-            h['ssl'] = Hash.new
+            h['ssl'] = {}
             h['ssl']['enabled'] = true
             h['ssl']['verify'] = ssl_verify
             h['ssl']['cert'] = ssl_cert
