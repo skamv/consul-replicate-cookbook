@@ -25,11 +25,11 @@ config = consul_replicate_config node['consul-replicate']['service_name'] do |r|
   if node['consul-replicate']['config']
     node['consul-replicate']['config'].each_pair { |k, v| r.send(k, v) }
   end
-  notifies :reload, "poise_service[#{name}]", :delayed
 end
 
 poise_service node['consul-replicate']['service_name'] do
   command "#{consul.program} -config #{config.path}"
   user node['consul-replicate']['service_user']
   directory node['consul-replicate']['service_directory']
+  subscribes :reload, "rc_file[#{config.path}]", :delayed
 end
