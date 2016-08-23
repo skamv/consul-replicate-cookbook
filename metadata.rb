@@ -3,7 +3,7 @@ maintainer 'John Bellone'
 maintainer_email 'jbellone@bloomberg.net'
 description 'Application cookbook which installs and configures Consul Replicate'
 long_description 'Application cookbook which installs and configures Consul Replicate'
-version '0.3.0'
+version '0.4.0'
 
 supports 'redhat', '>= 5.8'
 supports 'centos', '>= 5.8'
