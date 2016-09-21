@@ -42,18 +42,16 @@ module ConsulReplicateCookbook
             recursive true
           end
 
-          poise_archive ::File.basename(url) do
-            action :nothing
-            path ::File.join(Chef::Config[:file_cache_path], name)
-            destination consul_base
-            strip_components 0
-          end
-
           remote_file ::File.basename(url) do
-            action :nothing
             source url
             checksum options[:archive_checksum]
             path ::File.join(Chef::Config[:file_cache_path], name)
+          end
+
+          poise_archive ::File.basename(url) do
+            path ::File.join(Chef::Config[:file_cache_path], name)
+            destination consul_base
+            strip_components 0
           end
 
           file program do
