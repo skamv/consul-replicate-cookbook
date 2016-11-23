@@ -26,6 +26,8 @@ platforms:
       poise-service:
         consul:
           provider: systemd
+        consul-replicate:
+          provider: systemd
   - name: centos-6
     named_run_list: centos
     driver:
@@ -45,6 +47,8 @@ platforms:
     attributes:
       poise-service:
         consul:
+          provider: systemd
+        consul-replicate:
           provider: systemd
   - name: ubuntu-14.04
     named_run_list: debian
@@ -81,6 +85,6 @@ platforms:
       pid_one_command: /sbin/init
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN /usr/bin/apt-get install lsb-release sudo -y
+        - RUN /usr/bin/apt-get install procps lsb-release sudo -y
 suites:
   - name: default
