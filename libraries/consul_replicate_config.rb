@@ -67,6 +67,9 @@ module ConsulReplicateCookbook
       # @!attribute prefix
       # @return [Array]
       attribute(:prefix, kind_of: Array, default: [])
+      # @!attribute exclude
+      # @return [Array]
+      attribute(:exclude, kind_of: Array, default: [])
 
       def variables
         {
@@ -78,6 +81,7 @@ module ConsulReplicateCookbook
         }.tap do |h|
           h['token'] = token unless token.nil?
           h['wait'] = wait unless wait.nil?
+          h['exclude'] = exclude unless exclude.empty?
 
           if auth_enabled
             h['auth'] = {}
