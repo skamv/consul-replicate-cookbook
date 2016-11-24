@@ -14,7 +14,6 @@ describe process('consul-replicate') do
   it { should be_running }
 end
 
-
 describe user('consul') do
   it { should exist }
 end
