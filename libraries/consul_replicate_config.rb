@@ -55,6 +55,15 @@ module ConsulReplicateCookbook
       # @!attribute ssl_verify
       # @return [TrueClass, FalseClass]
       attribute(:ssl_verify, equal_to: [true, false], default: true)
+      # @!attribute ssl_cert
+      # @return [String]
+      attribute(:ssl_cert, kind_of: String)
+      # @!attribute ssl_key
+      # @return [String]
+      attribute(:ssl_key, kind_of: String)
+      # @!attribute ssl_ca_cert
+      # @return [String]
+      attribute(:ssl_ca_cert, kind_of: String)
       # @!attribute auth_enabled
       # @return [TrueClass, FalseClass]
       attribute(:auth_enabled, equal_to: [true, false], default: false)
@@ -100,9 +109,11 @@ module ConsulReplicateCookbook
             h['ssl'] = {}
             h['ssl']['enabled'] = true
             h['ssl']['verify'] = ssl_verify
-            h['ssl']['cert'] = ssl_cert
-            h['ssl']['key'] = ssl_key
-            h['ssl']['ca_cert'] = ssl_ca_cert
+            if ssl_verify
+              h['ssl']['cert'] = ssl_cert
+              h['ssl']['key'] = ssl_key
+              h['ssl']['ca_cert'] = ssl_ca_cert
+            end
           end
         end
       end
