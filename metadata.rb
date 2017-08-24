@@ -5,7 +5,7 @@ description 'Application cookbook which installs and configures Consul Replicate
 long_description 'Application cookbook which installs and configures Consul Replicate'
 issues_url 'https://github.com/johnbellone/consul-replicate-cookbook/issues'
 source_url 'https://github.com/johnbellone/consul-replicate-cookbook'
-version '0.5.0'
+version '0.5.1'
 
 supports 'redhat', '>= 5.8'
 supports 'centos', '>= 5.8'
